@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { createPublicClient, formatUnits, http } from "viem";
-import deployed from "../../../../shared/deployed.json";
+import deployed from "../../../lib/deployed.json";
 
 export const dynamic = "force-dynamic";
 

@@ -1,4 +1,4 @@
-import deployed from "../../shared/deployed.json";
+import deployed from "./deployed.json";
 
 export const CONTRACTS = deployed.contracts;
 

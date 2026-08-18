@@ -1,7 +1,7 @@
 import { getDefaultConfig } from "@rainbow-me/rainbowkit";
 import { http } from "wagmi";
 import { defineChain } from "viem";
-import deployed from "../../shared/deployed.json";
+import deployed from "./deployed.json";
 
 const rpcUrl = process.env.NEXT_PUBLIC_RPC_URL || deployed.rpcUrl || "http://127.0.0.1:9650";
 const chainId = Number(process.env.NEXT_PUBLIC_CHAIN_ID || deployed.chainId || 99999);
