@@ -1,0 +1,74 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+:root {
+  --lime: #c8f542;
+  --lime-dark: #a8d632;
+  --ink: #0a0a0a;
+  --muted: #6b7280;
+  --surface: #ffffff;
+  --surface-muted: #f3f4f6;
+  --border: #e5e7eb;
+}
+
+body {
+  @apply min-h-screen antialiased;
+  background: linear-gradient(180deg, #fafafa 0%, #f0f0f0 100%);
+  color: var(--ink);
+  font-feature-settings: "ss01", "cv01";
+}
+
+.glass-nav {
+  @apply bg-white/90 backdrop-blur-xl border border-black/5 shadow-[0_8px_40px_rgba(0,0,0,0.06)];
+}
+
+.pill {
+  @apply rounded-full;
+}
+
+.card {
+  @apply bg-white border border-black/5 rounded-3xl shadow-[0_4px_24px_rgba(0,0,0,0.04)];
+}
+
+.card-muted {
+  @apply bg-[#f7f7f7] border border-black/5 rounded-3xl;
+}
+
+.btn-lime {
+  @apply bg-[#c8f542] hover:bg-[#b8e532] text-black font-semibold px-6 py-3 rounded-full transition-all duration-200 shadow-sm hover:shadow-md disabled:opacity-50 disabled:cursor-not-allowed;
+}
+
+.btn-dark {
+  @apply bg-black hover:bg-neutral-800 text-white font-semibold px-6 py-3 rounded-full transition-all duration-200;
+}
+
+.badge {
+  @apply inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white border border-neutral-200 text-xs font-medium text-neutral-600 shadow-sm;
+}
+
+.hash-link {
+  @apply text-emerald-700 hover:underline font-mono text-xs break-all;
+}
+
+.section-title {
+  @apply text-sm font-semibold uppercase tracking-wider text-neutral-400;
+}
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-up {
+  animation: fade-up 0.5s ease-out forwards;
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+.pulse-dot {
+  animation: pulse-dot 2s ease-in-out infinite;
+}

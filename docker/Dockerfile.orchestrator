@@ -1,0 +1,11 @@
+FROM python:3.12-slim
+WORKDIR /app
+COPY services/orchestrator/requirements.txt services/orchestrator/requirements.txt
+RUN pip install --no-cache-dir -r services/orchestrator/requirements.txt
+COPY services/orchestrator services/orchestrator
+COPY shared shared
+# .env supplied at runtime via platform env vars or mount
+WORKDIR /app/services/orchestrator
+ENV ORCHESTRATOR_PORT=5000
+EXPOSE 5000
+CMD ["python", "main.py"]

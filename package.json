@@ -1,0 +1,27 @@
+{
+  "name": "agent-marketplace",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "contracts",
+    "shared",
+    "services/specialist-auditor",
+    "services/specialist-risk-scorer",
+    "services/specialist-gas-timing",
+    "frontend"
+  ],
+  "scripts": {
+    "dev:all": "node scripts/dev-all.js",
+    "devnet:up": "node scripts/devnet-up.js",
+    "devnet:verify": "node scripts/verify-devnet.js",
+    "deploy": "npm run deploy --workspace=contracts",
+    "deploy:fuji": "node scripts/deploy-fuji.js",
+    "docker:backends": "docker compose -f docker-compose.prod.yml up --build",
+    "verify:risk-apis": "node scripts/verify-risk-apis.js",
+    "verify:contracts": "npm run verify --workspace=contracts"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.4",
+    "dotenv": "^16.6.1"
+  }
+}

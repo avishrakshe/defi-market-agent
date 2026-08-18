@@ -1,0 +1,21 @@
+FROM node:20-slim
+WORKDIR /app
+
+COPY package.json package-lock.json ./
+COPY shared/package.json shared/
+COPY services/specialist-auditor/package.json services/specialist-auditor/
+COPY services/specialist-risk-scorer/package.json services/specialist-risk-scorer/
+COPY services/specialist-gas-timing/package.json services/specialist-gas-timing/
+
+RUN npm ci --workspace=shared --workspace=specialist-auditor --workspace=specialist-risk-scorer --workspace=specialist-gas-timing --omit=dev
+
+COPY shared shared
+COPY services/specialist-auditor services/specialist-auditor
+COPY services/specialist-risk-scorer services/specialist-risk-scorer
+COPY services/specialist-gas-timing services/specialist-gas-timing
+COPY shared/deployed.json shared/deployed.json
+
+ARG AGENT_SERVICE=specialist-auditor
+ENV AGENT_SERVICE=${AGENT_SERVICE}
+
+CMD ["sh", "-c", "node services/${AGENT_SERVICE}/server.js"]

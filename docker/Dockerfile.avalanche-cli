@@ -1,0 +1,15 @@
+FROM ubuntu:22.04
+
+ENV DEBIAN_FRONTEND=noninteractive
+
+RUN apt-get update && apt-get install -y \
+    curl ca-certificates docker.io jq \
+    && rm -rf /var/lib/apt/lists/*
+
+RUN curl -sSfL https://raw.githubusercontent.com/ava-labs/avalanche-cli/main/scripts/install.sh | sh -s
+
+ENV PATH="/root/bin:${PATH}"
+
+WORKDIR /workspace
+
+ENTRYPOINT ["avalanche"]

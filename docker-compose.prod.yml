@@ -1,0 +1,63 @@
+# Production backends — orchestrator + 3 DeFi agents
+# Usage: docker compose -f docker-compose.prod.yml up --build
+# Requires .env in repo root (copy from .env.production.example)
+
+services:
+  orchestrator:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.orchestrator
+    ports:
+      - "5000:5000"
+    env_file:
+      - .env
+    environment:
+      ORCHESTRATOR_PORT: "5000"
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:5000/health')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  auditor:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.agent
+      args:
+        AGENT_SERVICE: specialist-auditor
+    ports:
+      - "4001:4001"
+    env_file:
+      - .env
+    environment:
+      AUDITOR_PORT: "4001"
+    restart: unless-stopped
+
+  risk-scorer:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.agent
+      args:
+        AGENT_SERVICE: specialist-risk-scorer
+    ports:
+      - "4002:4002"
+    env_file:
+      - .env
+    environment:
+      RISK_SCORER_PORT: "4002"
+    restart: unless-stopped
+
+  gas-timing:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.agent
+      args:
+        AGENT_SERVICE: specialist-gas-timing
+    ports:
+      - "4003:4003"
+    env_file:
+      - .env
+    environment:
+      GAS_TIMING_PORT: "4003"
+    restart: unless-stopped
